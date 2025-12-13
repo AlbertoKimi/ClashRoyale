@@ -7,16 +7,18 @@ public class FuenteDeDatos {
     private ArrayList<Carta> cartas;
     private static FuenteDeDatos instancia;
 
-    private FuenteDeDatos(){
+    private FuenteDeDatos() {
         inicializar();
     }
 
-    public static FuenteDeDatos getInstancia(){
-        if (instancia==null) return new FuenteDeDatos();
-        else return instancia;
+    public static FuenteDeDatos getInstancia() {
+        if (instancia == null)
+            return new FuenteDeDatos();
+        else
+            return instancia;
     }
 
-    private void inicializar(){
+    private void inicializar() {
         cartas = new ArrayList<>();
         cartas.add(new Carta("1", "Arqueras", 3, 112, 304, "Común", "imagenes/Archers.png"));
         cartas.add(new Carta("2", "Caballero", 3, 159, 1399, "Común", "imagenes/Knight.png"));
@@ -50,15 +52,32 @@ public class FuenteDeDatos {
         cartas.add(new Carta("30", "Torre infernal", 5, 75, 1070, "Rara", "imagenes/Inferno.png"));
     }
 
-    public ArrayList<Carta> getCartas(){
+    public ArrayList<Carta> getCartas() {
         return cartas;
     }
 
-    public Carta getCarta(String id){
+    public Carta getCarta(String id) {
         for (Carta carta : cartas) {
-            if (id.equals(carta.getId())) return carta;
+            if (id.equals(carta.getId()))
+                return carta;
         }
 
         return null;
+    }
+
+    public boolean eliminarCarta(String id) {
+        for (int i = 0; i < cartas.size(); i++) {
+            if (id.equals(cartas.get(i).getId())) {
+                cartas.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void anadirCarta(Carta carta){
+        if(carta!=null){
+            cartas.add(carta);
+        }
     }
 }
