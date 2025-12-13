@@ -46,7 +46,7 @@ public class MazoServlet extends HttpServlet {
         }
 
         req.setAttribute("cartasDisponibles", cartasDisponibles);
-        req.getRequestDispatcher("mazo.jsp").forward(req, resp);
+
 
         if (accion.equals("agregar")) {
             try {
