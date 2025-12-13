@@ -15,8 +15,8 @@
     <div style="color:red"><c:out value="${mensajeErr}" default=""/></div>
 
     <div class="contenedor" id="contenedor">
-      <form action="mazo-servlet" method="post">
-        <c:forEach items="${applicationScope.cartas}" var="carta">
+      <c:forEach items="${applicationScope.cartas}" var="carta">
+        <form action="mazo-servlet" method="post">
           <div class="foto">
             <img src="${carta.imagen}" alt="${carta.nombre}">
           </div>
@@ -30,8 +30,8 @@
                   <input type="hidden" name="seleccion" value="${carta.id}">
                   <input type="submit" value="Añadir">
                 </div>
-        </c:forEach>
-      </form>
+        </form>
+      </c:forEach>
     </div> 
 
     <div class ="mazo">
