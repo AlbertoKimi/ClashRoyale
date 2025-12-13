@@ -1,0 +1,82 @@
+package com.alberto.servlet;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.alberto.beans.Mazo;
+import com.alberto.beans.FuenteDeDatos;
+import com.alberto.beans.Carta;
+import com.alberto.utils.CookieUtils;
+import com.alberto.utils.Validador;
+
+@WebServlet(urlPatterns = {"/mazo-servlet"})
+public class MazoServlet extends HttpServlet{
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        
+        req.getRequestDispatcher("mazo.jsp").forward(req, resp);
+        System.out.println("redirigiendo a index");
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // Mensajes para la vista
+        String mensaje = "";
+        String mensajeErr = "";
+        // Objetos de obtención de datos
+        HttpSession session = req.getSession();
+        Mazo mazo = (Mazo) session.getAttribute("mazo");
+        FuenteDeDatos fd = FuenteDeDatos.getInstancia();
+        // Variables para los parámetros
+        String seleccion = "";
+        boolean error = false;
+        String accion = req.getParameter("accion");
+        // Validamos los parámetros, el mensaje de error se crea en las excepciones lanzadas por los métodos de la clase Validador
+        try {
+            seleccion = Validador.validarString(req.getParameter("contenedor"));
+            
+        } catch (Exception e) {
+            mensajeErr = e.getMessage();
+            error = true;
+        }
+
+        // Si no ha ocurrido error, hacemos las modificaciones
+        if (!error){
+            // Buscamos el libro en nuestro proveedor, fuente de datos, mock, dao o como lo queráis llamar
+            Carta carta = fd.getCarta(seleccion);
+            if (carta != null){
+                if(accion.equals("agregar")){
+                // Llamamos a los métodos del modelo que gestionan el añadir libros
+                    mazo.addCarta(carta);
+                    System.out.println("Se ha añadido la carta");
+
+                // Creamos un mensaje de éxito
+                   mensaje = "Carta " + carta.getNombre() + " añadido al mazo";
+                }
+ 
+            } else {
+                // En caso de error al encontrar el libro, preparamos un mensaje de error. Usamos una variable distinta porque en la vista queremos pintarlo de rojo para diferenciarlo del mensaje de éxito
+                mensajeErr = "No se ha encontrado la carta seleccionada";
+            }
+            
+            // Codificamos el carrito para guardarlo en una cookie
+            Cookie mazoCookie = CookieUtils.encodeMapForCookie("mazo", mazo.getMazo());
+            resp.addCookie(mazoCookie);
+        }
+
+        // Añadimos los mensajes como atributo de la request y hacemos forward de vuelta a la vista
+        if (!mensajeErr.equals("")){
+            req.setAttribute("mensajeErr", mensajeErr);
+        }
+        req.setAttribute("mensaje", mensaje);
+        req.getRequestDispatcher("mazo.jsp").forward(req, resp);
+    }
+}

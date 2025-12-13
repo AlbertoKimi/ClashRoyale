@@ -1,0 +1,146 @@
+/* ====== RESET SIMPLE ====== */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: #f6f6f6;
+    color: #222;
+}
+
+h1, h2 {
+    margin-top: 0;
+}
+
+/* ====== BOTONES ====== */
+/* Botón base */
+a.button,
+button,
+input[type="submit"] {
+    display: inline-block;
+    padding: 8px 12px;
+    background: #0078d7;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 14px;
+    margin: 5px 0;
+    transition: background 0.2s;
+    align-self: flex-start;   /* evita estirarse en contenedor flex */
+}
+
+/* Hover normal */
+a.button:hover,
+button:hover,
+input[type="submit"]:hover {
+    background: #005fb1;
+}
+
+/* Botón “deshabilitado” */
+a.button.disabled {
+    background: #999;          /* gris */
+    cursor: not-allowed;       /* cursor inactivo */
+    pointer-events: none;      /* bloquea clicks */
+    color: #eee;
+}
+
+/* Hover para deshabilitado no cambia */
+a.button.disabled:hover {
+    background: #999;
+}
+
+
+
+/* ====== CONTENEDORES ====== */
+.container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap; /* Permite que los hijos pasen a la siguiente línea */
+}
+
+/* Zona de cartas y mazo: ocupan todo el ancho disponible */
+.cartas,
+.mazo {
+    flex: 1 1 100%; /* ancho completo en contenedor flex */
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 15px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    display: flex;
+    flex-wrap: wrap; /* Aquí se hace el wrap de las cartas */
+    gap: 10px;
+}
+
+/* ====== TARJETAS DE CARTA ====== */
+.carta {
+    display: flex;
+    flex-direction: column;   /* Imagen arriba, texto debajo */
+    justify-content: center;   /* Centrado vertical dentro de la tarjeta */
+    align-items: center;       /* Centrado horizontal */
+    width: 120px;              /* Ancho fijo de la carta */
+    padding: 8px;
+    margin-bottom: 10px;
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: transform .1s;
+    text-align: center;        /* Alinea el texto */
+}
+
+.carta:hover {
+    transform: scale(1.05);
+}
+
+.carta img,
+.carta input[type="image"] {
+    width: 64px;               /* Tamaño uniforme */
+    height: 64px;
+    object-fit: contain;       /* Mantiene proporción sin deformar */
+    border-radius: 3px;
+    cursor: pointer;
+    margin-bottom: 5px;        /* Separación entre imagen y texto */
+}
+
+.carta p {
+    margin: 2px 0;             /* Márgenes uniformes para cada línea */
+    font-size: 14px;
+}
+
+/* ====== ZONA DE ESTADÍSTICAS ====== */
+.stats {
+    margin-top: 20px;
+    padding: 15px;
+    background: white;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.stats p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+/* ====== MENSAJE DE ERROR ====== */
+.error {
+    background: #ffdddd;
+    border: 1px solid #e88;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    color: #900;
+}
+
+/* ====== RESPONSIVO ====== */
+@media (max-width: 800px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .carta {
+        width: 100px;
+    }
+}
