@@ -80,24 +80,24 @@ public class Mazo {
         return contar;
     }
 
-    public void setMazo(HashMap<Carta,Integer> mazo){
-        this.mazo=mazo;
+    public void setMazo(HashMap<Carta, Integer> mazo) {
+        this.mazo = mazo;
     }
 
-        public void addCarta(Carta carta) {
-        if (mazo.containsKey(carta)){
+    public void addCarta(Carta carta) {
+        if (mazo.containsKey(carta)) {
             System.out.println("Error, no se puede añadir una misma carta al mazo");
         } else {
-            mazo.put(carta,1);
+            mazo.put(carta, 1);
         }
     }
 
-    public void eliminarCarta(Carta carta){
+    public void eliminarCarta(Carta carta) {
         mazo.remove(carta);
     }
 
-    public void vaciar (){
+    public void vaciar() {
         mazo.clear();
     }
-    
+
 }

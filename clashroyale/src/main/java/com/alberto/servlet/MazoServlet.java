@@ -41,7 +41,7 @@ public class MazoServlet extends HttpServlet{
         String accion = req.getParameter("accion");
         // Validamos los parámetros, el mensaje de error se crea en las excepciones lanzadas por los métodos de la clase Validador
         try {
-            seleccion = Validador.validarString(req.getParameter("contenedor"));
+            seleccion = Validador.validarString(req.getParameter("seleccion"));
             
         } catch (Exception e) {
             mensajeErr = e.getMessage();

@@ -21,12 +21,14 @@
             <img src="${carta.imagen}" alt="${carta.nombre}">
           </div>
             <div class="stats2">
-                <p id="nombre" name = "contenedor"><strong>${carta.id}</strong></p>
+                <p id="nombre"><strong>${carta.nombre}</strong></p>
                 <p>Coste Elixir: ${carta.elixir}</p>
                 <p>Rareza: ${carta.rareza}</p>
             </div>
                 <div>
-                  <input type="submit" name="accion" value="${carta.id}">
+                  <input type="hidden" name="accion" value="agregar">
+                  <input type="hidden" name="seleccion" value="${carta.id}">
+                  <input type="submit" value="Añadir">
                 </div>
         </c:forEach>
       </form>
