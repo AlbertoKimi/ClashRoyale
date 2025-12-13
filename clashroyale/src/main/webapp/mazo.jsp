@@ -15,7 +15,7 @@
     <div style="color:red"><c:out value="${mensajeErr}" default=""/></div>
 
     <div class="contenedor" id="contenedor">
-      <c:forEach items="${applicationScope.cartas}" var="carta">
+      <c:forEach items="${cartasDisponibles}" var="carta">
         <form action="mazo-servlet" method="post">
           <div class="foto">
             <img src="${carta.imagen}" alt="${carta.nombre}">

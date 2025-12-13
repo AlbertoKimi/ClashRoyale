@@ -14,6 +14,15 @@ public class Mazo {
         return this.mazo;
     }
 
+    public boolean estaEnMazo(String id){
+        for (Carta carta : mazo.keySet()){
+            if(carta.getId().equals(id)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public int getAtaqueTotal() {
         int ataqueTotal = 0;
         for (Entry<Carta, Integer> entry : mazo.entrySet()) {
@@ -85,11 +94,13 @@ public class Mazo {
     }
 
     public void addCarta(Carta carta) {
-        if (mazo.containsKey(carta)) {
-            System.out.println("Error, no se puede añadir una misma carta al mazo");
-        } else {
-            mazo.put(carta, 1);
+        for (Carta c : mazo.keySet()) {
+            if (c.getId().equals(carta.getId())) {
+                System.out.println("Error, no se puede añadir una misma carta al mazo");
+                return;
+            }
         }
+        mazo.put(carta, 1);
     }
 
     public void eliminarCarta(Carta carta) {

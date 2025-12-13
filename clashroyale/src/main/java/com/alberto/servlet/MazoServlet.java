@@ -1,6 +1,7 @@
 package com.alberto.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,6 +37,16 @@ public class MazoServlet extends HttpServlet {
         String seleccion = "";
         boolean error = false;
         String accion = req.getParameter("accion");
+        ArrayList<Carta> cartasDisponibles = new ArrayList<>();
+
+        for (Carta carta : fd.getCartas()) {
+            if (!mazo.estaEnMazo(carta.getId())) {
+                cartasDisponibles.add(carta);
+            }
+        }
+
+        req.setAttribute("cartasDisponibles", cartasDisponibles);
+        req.getRequestDispatcher("mazo.jsp").forward(req, resp);
 
         if (accion.equals("agregar")) {
             try {
@@ -50,7 +61,6 @@ public class MazoServlet extends HttpServlet {
                 if (carta != null) {
                     mazo.addCarta(carta);
                     System.out.println("Se ha añadido la carta");
-                    fd.eliminarCarta(carta.getId());
                     System.out.println("Se ha eliminado la carta " + carta.getNombre() + " de la fuente de datos ");
                     mensaje = "Carta " + carta.getNombre() + " añadido al mazo";
                 } else {
@@ -61,9 +71,6 @@ public class MazoServlet extends HttpServlet {
             }
         } else if (accion.equals("limpiar")) {
             if (mazo != null && !mazo.getMazo().isEmpty()) {
-                for (Carta cartaDeVuelta : mazo.getMazo().keySet()) {
-                    fd.anadirCarta(cartaDeVuelta);
-                }
                 mazo.vaciar();
                 Cookie mazoCookie = new Cookie("mazo", "");
                 mazoCookie.setMaxAge(0);

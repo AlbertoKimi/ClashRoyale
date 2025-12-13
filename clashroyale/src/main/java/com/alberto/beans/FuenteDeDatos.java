@@ -64,20 +64,4 @@ public class FuenteDeDatos {
 
         return null;
     }
-
-    public boolean eliminarCarta(String id) {
-        for (int i = 0; i < cartas.size(); i++) {
-            if (id.equals(cartas.get(i).getId())) {
-                cartas.remove(i);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public void anadirCarta(Carta carta){
-        if(carta!=null){
-            cartas.add(carta);
-        }
-    }
 }
