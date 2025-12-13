@@ -21,7 +21,7 @@
             <img src="${carta.imagen}" alt="${carta.nombre}">
           </div>
             <div class="stats2">
-                <p id="nombre"><strong>${carta.id}</strong></p>
+                <p id="nombre"><strong>${carta.nombre}</strong></p>
                 <p>Coste Elixir: ${carta.elixir}</p>
                 <p>Rareza: ${carta.rareza}</p>
             </div>
@@ -56,9 +56,15 @@
         </tbody>
     </table>
     
-    </div>       
-
-    <a href="estadisticas-servlet" <c:if test="${empty sessionScope.mazo.mazo}">style="pointer-events: none;"</c:if>>Ver Mazo</a>
-    <a href="mazo-servlet" <c:if test="${empty sessionScope.mazo.mazo}">style="pointer-events: none;"</c:if>>Limpiar</a>
+    </div>   
+    <div>
+      <c:if test= "${not empty sessionScope.mazo.mazo}">
+        <form action="mazo-servlet" method="post">    
+          <input type="hidden" name="accion" value="limpiar">
+          <input type="submit" value="Limpiar Mazo">
+        </form>
+      </c:if>
+      <a href="estadisticas-servlet" <c:if test="${empty sessionScope.mazo.mazo}">style="pointer-events: none;"</c:if>>Ver Mazo</a>
+    </div>
 </body>
 </html>

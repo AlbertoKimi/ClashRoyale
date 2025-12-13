@@ -28,34 +28,30 @@ public class MazoServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // Mensajes para la vista
         String mensaje = "";
         String mensajeErr = "";
-        // Objetos de obtención de datos
         HttpSession session = req.getSession();
         Mazo mazo = (Mazo) session.getAttribute("mazo");
         FuenteDeDatos fd = FuenteDeDatos.getInstancia();
-        // Variables para los parámetros
         String seleccion = "";
         boolean error = false;
         String accion = req.getParameter("accion");
-        // Validamos los parámetros, el mensaje de error se crea en las excepciones
-        // lanzadas por los métodos de la clase Validador
-        try {
-            seleccion = Validador.validarString(req.getParameter("seleccion"));
-
-        } catch (Exception e) {
-            mensajeErr = e.getMessage();
-            error = true;
-        }
 
         if (accion.equals("agregar")) {
+            try {
+                seleccion = Validador.validarString(req.getParameter("seleccion"));
+
+            } catch (Exception e) {
+                mensajeErr = e.getMessage();
+                error = true;
+            }
             if (!error) {
                 Carta carta = fd.getCarta(seleccion);
                 if (carta != null) {
                     mazo.addCarta(carta);
                     System.out.println("Se ha añadido la carta");
                     fd.eliminarCarta(carta.getId());
+                    System.out.println("Se ha eliminado la carta " + carta.getNombre() + " de la fuente de datos ");
                     mensaje = "Carta " + carta.getNombre() + " añadido al mazo";
                 } else {
                     mensajeErr = "No se ha encontrado la carta seleccionada";
@@ -63,19 +59,19 @@ public class MazoServlet extends HttpServlet {
                 Cookie mazoCookie = CookieUtils.encodeMapForCookie("mazo", mazo.getMazo());
                 resp.addCookie(mazoCookie);
             }
-        } else if (accion.equals("limpiar")){
-            if(mazo!=null && !mazo.getMazo().isEmpty()){
-                for(Carta cartaDeVuelta : mazo.getMazo().keySet()){
+        } else if (accion.equals("limpiar")) {
+            if (mazo != null && !mazo.getMazo().isEmpty()) {
+                for (Carta cartaDeVuelta : mazo.getMazo().keySet()) {
                     fd.anadirCarta(cartaDeVuelta);
                 }
                 mazo.vaciar();
                 Cookie mazoCookie = new Cookie("mazo", "");
                 mazoCookie.setMaxAge(0);
                 resp.addCookie(mazoCookie);
-                mensaje= "Mazo y cartas reseteados";
+                mensaje = "Mazo y cartas reseteados";
             }
 
-            else{
+            else {
                 mensaje = "Acción no encontrada";
             }
 

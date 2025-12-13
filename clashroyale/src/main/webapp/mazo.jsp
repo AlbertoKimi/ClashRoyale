@@ -59,7 +59,7 @@
     </div>   
     <div>
       <c:if test= "${not empty sessionScope.mazo.mazo}">
-        <form action="mazo-servlet" method="post"></form>    
+        <form action="mazo-servlet" method="post">    
           <input type="hidden" name="accion" value="limpiar">
           <input type="submit" value="Limpiar Mazo">
         </form>
