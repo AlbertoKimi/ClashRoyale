@@ -63,10 +63,16 @@ public class MazoServlet extends HttpServlet {
                 if (!error) {
                     Carta carta = fd.getCarta(seleccion);
                     if (carta != null) {
-                        mazo.addCarta(carta);
-                        System.out.println("Se ha añadido la carta");
-                        System.out.println("Se ha eliminado la carta " + carta.getNombre() + " de la fuente de datos ");
-                        mensaje = "Carta " + carta.getNombre() + " añadido al mazo";
+                        if (mazo.getMazo().size() < 8) {
+                            mazo.addCarta(carta);
+                            System.out.println("Se ha añadido la carta");
+                            System.out.println(
+                                    "Se ha eliminado la carta " + carta.getNombre() + " de la fuente de datos ");
+                            mensaje = "Carta " + carta.getNombre() + " añadido al mazo";
+                        } else {
+                            mensajeErr = "El mazo no puede contener más de 8 cartas";
+                        }
+
                     } else {
                         mensajeErr = "No se ha encontrado la carta seleccionada";
                     }
@@ -85,7 +91,7 @@ public class MazoServlet extends HttpServlet {
                 break;
             case "ver":
                 if (mazo != null && mazo.getMazo().size() == 8) {
-                    resp.sendRedirect("mazo-servlet");
+                    resp.sendRedirect("estadisticas-servlet");
                     return;
                 } else {
                     mensaje = "El mazo debe contener 8 cartas";
