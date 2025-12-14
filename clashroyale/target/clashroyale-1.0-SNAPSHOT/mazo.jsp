@@ -12,8 +12,11 @@
 </head>
 <body>
     <h1>Bienvenido</h1>
-    <div><c:out value="${mensaje}" default=""/></div>
-    <div style="color:red"><c:out value="${mensajeErr}" default=""/></div>
+    <div><c:out value="${sessionScope.mensaje}" default=""/></div>
+    <div style="color:red"><c:out value="${sessionScope.mensajeErr}" default=""/></div>
+
+    <c:remove var="mensaje" scope="session"/>
+    <c:remove var="mensajeErr" scope="session"/>
 
     <c:set var="mazoVacia" value="${not empty sessionScope.mazo.mazo}" />
 

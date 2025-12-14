@@ -43,13 +43,13 @@ public class Mazo {
         int elixirMedio = 0;
         int suma = 0;
         for (Entry<Carta, Integer> entry : mazo.entrySet()) {
-            suma += entry.getKey().getAtaque();
+            suma += entry.getKey().getElixir();
             elixirMedio = suma / 8;
         }
         return elixirMedio;
     }
 
-    public int contarComunes(HashMap<Carta, Integer> mazo) {
+    public int contarComunes() {
         int contar = 0;
         for (Entry<Carta, Integer> entry : mazo.entrySet()) {
             if (entry.getKey().getRareza().equals("Común")) {
@@ -59,7 +59,7 @@ public class Mazo {
         return contar;
     }
 
-    public int contarRaras(HashMap<Carta, Integer> mazo) {
+    public int contarRaras() {
         int contar = 0;
         for (Entry<Carta, Integer> entry : mazo.entrySet()) {
             if (entry.getKey().getRareza().equals("Rara")) {
@@ -69,7 +69,7 @@ public class Mazo {
         return contar;
     }
 
-    public int contarEpica(HashMap<Carta, Integer> mazo) {
+    public int contarEpica() {
         int contar = 0;
         for (Entry<Carta, Integer> entry : mazo.entrySet()) {
             if (entry.getKey().getRareza().equals("Épica")) {
@@ -79,7 +79,7 @@ public class Mazo {
         return contar;
     }
 
-    public int contarLegen(HashMap<Carta, Integer> mazo) {
+    public int contarLegen() {
         int contar = 0;
         for (Entry<Carta, Integer> entry : mazo.entrySet()) {
             if (entry.getKey().getRareza().equals("Legendaria")) {

@@ -104,9 +104,9 @@ public class MazoServlet extends HttpServlet {
         }
 
         if (!mensajeErr.equals("")) {
-            req.setAttribute("mensajeErr", mensajeErr);
+            session.setAttribute("mensajeErr", mensajeErr);
         }
-        req.setAttribute("mensaje", mensaje);
+        session.setAttribute("mensaje", mensaje);
         resp.sendRedirect("mazo-servlet");
     }
 }
