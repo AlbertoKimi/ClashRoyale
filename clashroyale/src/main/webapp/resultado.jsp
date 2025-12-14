@@ -25,7 +25,6 @@
             <%--Los elementos se encuentran en la sesión -> objeto carrito -> mapa carrito -> entrySet--%>
             <c:forEach items="${sessionScope.mazo.mazo.entrySet()}" var="entry">
             <tr>
-                <td>${entry.value}</td>
                 <td>${entry.key.imagen}</td>
                 <td>${entry.key.nombre}</td>
                 <td>${entry.key.elixir}</td>
@@ -34,36 +33,37 @@
             </c:forEach>
             <tr>
                 <td colspan="4">Coste medio elixir</td>
-                <td>${sessionScope.mazo.elixirMedio}</td>
+                <td>${sessionScope.mazo.costeElixirMedio()}</td>
             </tr>
             <tr>
                 <td colspan="4">Ataque Total</td>
-                <td>${sessionScope.mazo.ataque}</td>
+                <td>${sessionScope.mazo.getAtaqueTotal()}</td>
             </tr>
             <tr>
                 <td colspan="4">Vida</td>
+                <td>${sessionScope.mazo.getVidaTotal()}</td>
                 
             </tr>
             <tr>
                 <td colspan="4">Comunes:</td>
-            <td>${sessionScope.mazo.comunes}</td>
+            <td>${sessionScope.mazo.contarComunes()}</td>
             </tr>
                         <tr>
                 <td colspan="4">Raras</td>
-                <td>${sessionScope.mazo.raras}</td>
+                <td>${sessionScope.mazo.contarRaras()}</td>
             </tr>
                         <tr>
                 <td colspan="4">Épicas</td>
-                <td>${sessionScope.mazo.epicas}</td>
+                <td>${sessionScope.mazo.contarEpica()}</td>
             </tr>
                         <tr>
                 <td colspan="4">Legendaria</td>
-                <td>${sessionScope.mazo.legendaria}</td>
+                <td>${sessionScope.mazo.contarLegen()}</td>
             </tr>
         </tbody>
     </table>
     
-    <form action="factura-servlet" method="post">
+    <form action="mazo-servlet" method="post">
         <input type="submit" name="accion" value="volver">
     </form>
 
