@@ -51,7 +51,7 @@
             </tr>
           </thead>
         <tbody>
-            <%--Los elementos se encuentran en la sesión -> objeto carrito -> mapa carrito -> entrySet--%>
+            <%--Los elementos se encuentran en la sesión -> objeto mazo -> mapa mazo -> entrySet--%>
             <c:forEach items="${sessionScope.mazo.mazo.entrySet()}" var="entry">
             <tr>
                 <td>${entry.key.nombre}</td>
