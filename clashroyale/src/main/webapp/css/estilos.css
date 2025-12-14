@@ -45,8 +45,21 @@ a.button.disabled {
     color: #eee;
 }
 
-/* Hover para deshabilitado no cambia */
+
 a.button.disabled:hover {
+    background: #999;
+}
+
+
+.disabled {
+    background: #999;         
+    cursor: not-allowed;     
+    pointer-events: none;     
+    color: #eee;
+}
+
+
+.disabled:hover {
     background: #999;
 }
 

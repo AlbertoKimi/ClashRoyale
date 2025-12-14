@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import com.alberto.beans.Mazo;
 import com.alberto.utils.CookieUtils;
 
-@WebServlet(urlPatterns = {"/factura-servlet"})
+@WebServlet(urlPatterns = {"/estadisticas-servlet"})
 public class Estadisticas extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

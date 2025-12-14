@@ -8,11 +8,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ClashRoyale</title>
+    <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
     <h1>Bienvenido</h1>
     <div><c:out value="${mensaje}" default=""/></div>
     <div style="color:red"><c:out value="${mensajeErr}" default=""/></div>
+
+    <c:set var="mazoVacia" value="${not empty sessionScope.mazo.mazo}" />
+
 
     <div class="contenedor" id="contenedor">
       <c:forEach items="${cartasDisponibles}" var="carta">
@@ -58,12 +62,10 @@
     
     </div>   
     <div>
-      <c:if test= "${not empty sessionScope.mazo.mazo}">
         <form action="mazo-servlet" method="post">    
           <input type="hidden" name="accion" value="limpiar">
-          <input type="submit" value="Limpiar Mazo">
+          <input type="submit" ${mazoVacia ? 'disable class ="disable"' : '' }value="Limpiar Mazo">
         </form>
-      </c:if>
       <a href="estadisticas-servlet" <c:if test="${empty sessionScope.mazo.mazo}">style="pointer-events: none;"</c:if>>Ver Mazo</a>
     </div>
 </body>
