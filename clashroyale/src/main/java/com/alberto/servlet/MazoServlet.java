@@ -23,6 +23,19 @@ public class MazoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        HttpSession session = req.getSession();
+        Mazo mazo = (Mazo) session.getAttribute("mazo");
+        FuenteDeDatos fd = FuenteDeDatos.getInstancia();
+        ArrayList<Carta> cartasDisponibles = new ArrayList<>();
+
+        for (Carta carta : fd.getCartas()) {
+            if (!mazo.estaEnMazo(carta.getId())) {
+                cartasDisponibles.add(carta);
+            }
+        }
+
+        req.setAttribute("cartasDisponibles", cartasDisponibles);
+
         req.getRequestDispatcher("mazo.jsp").forward(req, resp);
         System.out.println("redirigiendo a index");
     }
@@ -37,16 +50,6 @@ public class MazoServlet extends HttpServlet {
         String seleccion = "";
         boolean error = false;
         String accion = req.getParameter("accion");
-        ArrayList<Carta> cartasDisponibles = new ArrayList<>();
-
-        for (Carta carta : fd.getCartas()) {
-            if (!mazo.estaEnMazo(carta.getId())) {
-                cartasDisponibles.add(carta);
-            }
-        }
-
-        req.setAttribute("cartasDisponibles", cartasDisponibles);
-
 
         if (accion.equals("agregar")) {
             try {
@@ -88,6 +91,6 @@ public class MazoServlet extends HttpServlet {
             req.setAttribute("mensajeErr", mensajeErr);
         }
         req.setAttribute("mensaje", mensaje);
-        req.getRequestDispatcher("mazo.jsp").forward(req, resp);
+        resp.sendRedirect("mazo-servlet");
     }
 }
