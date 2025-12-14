@@ -16,7 +16,7 @@ import com.alberto.utils.CookieUtils;
 public class Estadisticas extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("mazo.jsp").forward(req, resp);
+        req.getRequestDispatcher("resultado.jsp").forward(req, resp);
     }
 
     @Override
@@ -26,6 +26,6 @@ public class Estadisticas extends HttpServlet{
         mazo.vaciar();
         session.setAttribute("mazo", mazo);               
         CookieUtils.deleteCookie(req, resp, "mazo");
-        resp.sendRedirect("mazo-servlet");
+        resp.sendRedirect("estadisticas-servlet");
     }
 }

@@ -37,7 +37,7 @@ public class MazoServlet extends HttpServlet {
         req.setAttribute("cartasDisponibles", cartasDisponibles);
 
         req.getRequestDispatcher("mazo.jsp").forward(req, resp);
-        System.out.println("redirigiendo a index");
+        System.out.println("redirigiendo al mazo");
     }
 
     @Override
@@ -51,40 +51,50 @@ public class MazoServlet extends HttpServlet {
         boolean error = false;
         String accion = req.getParameter("accion");
 
-        if (accion.equals("agregar")) {
-            try {
-                seleccion = Validador.validarString(req.getParameter("seleccion"));
+        switch (accion) {
+            case "agregar":
+                try {
+                    seleccion = Validador.validarString(req.getParameter("seleccion"));
 
-            } catch (Exception e) {
-                mensajeErr = e.getMessage();
-                error = true;
-            }
-            if (!error) {
-                Carta carta = fd.getCarta(seleccion);
-                if (carta != null) {
-                    mazo.addCarta(carta);
-                    System.out.println("Se ha añadido la carta");
-                    System.out.println("Se ha eliminado la carta " + carta.getNombre() + " de la fuente de datos ");
-                    mensaje = "Carta " + carta.getNombre() + " añadido al mazo";
-                } else {
-                    mensajeErr = "No se ha encontrado la carta seleccionada";
+                } catch (Exception e) {
+                    mensajeErr = e.getMessage();
+                    error = true;
                 }
-                Cookie mazoCookie = CookieUtils.encodeMapForCookie("mazo", mazo.getMazo());
-                resp.addCookie(mazoCookie);
-            }
-        } else if (accion.equals("limpiar")) {
-            if (mazo != null && !mazo.getMazo().isEmpty()) {
-                mazo.vaciar();
-                Cookie mazoCookie = new Cookie("mazo", "");
-                mazoCookie.setMaxAge(0);
-                resp.addCookie(mazoCookie);
-                mensaje = "Mazo y cartas reseteados";
-            }
+                if (!error) {
+                    Carta carta = fd.getCarta(seleccion);
+                    if (carta != null) {
+                        mazo.addCarta(carta);
+                        System.out.println("Se ha añadido la carta");
+                        System.out.println("Se ha eliminado la carta " + carta.getNombre() + " de la fuente de datos ");
+                        mensaje = "Carta " + carta.getNombre() + " añadido al mazo";
+                    } else {
+                        mensajeErr = "No se ha encontrado la carta seleccionada";
+                    }
+                    Cookie mazoCookie = CookieUtils.encodeMapForCookie("mazo", mazo.getMazo());
+                    resp.addCookie(mazoCookie);
+                }
+                break;
+            case "limpiar":
+                if (mazo != null && !mazo.getMazo().isEmpty()) {
+                    mazo.vaciar();
+                    Cookie mazoCookie = new Cookie("mazo", "");
+                    mazoCookie.setMaxAge(0);
+                    resp.addCookie(mazoCookie);
+                    mensaje = "Mazo y cartas reseteados";
+                }
+                break;
+            case "ver":
+                if (mazo != null && mazo.getMazo().size() == 8) {
+                    resp.sendRedirect("mazo-servlet");
+                    return;
+                } else {
+                    mensaje = "El mazo debe contener 8 cartas";
+                }
+                break;
 
-            else {
+            default:
                 mensaje = "Acción no encontrada";
-            }
-
+                break;
         }
 
         if (!mensajeErr.equals("")) {

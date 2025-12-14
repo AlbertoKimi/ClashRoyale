@@ -51,7 +51,6 @@
             <%--Los elementos se encuentran en la sesión -> objeto carrito -> mapa carrito -> entrySet--%>
             <c:forEach items="${sessionScope.mazo.mazo.entrySet()}" var="entry">
             <tr>
-                <td>${entry.value}</td>
                 <td>${entry.key.nombre}</td>
                 <td>${entry.key.elixir}</td>
                 <td>${entry.key.rareza}</td>
@@ -64,9 +63,15 @@
     <div>
         <form action="mazo-servlet" method="post">    
           <input type="hidden" name="accion" value="limpiar">
-          <input type="submit" ${mazoVacia ? 'disable class ="disable"' : '' }value="Limpiar Mazo">
+          <input type="submit" ${!mazoVacia ? 'disabled class="disabled"' : '' } value="Limpiar Mazo">
         </form>
-      <a href="estadisticas-servlet" <c:if test="${empty sessionScope.mazo.mazo}">style="pointer-events: none;"</c:if>>Ver Mazo</a>
+    </div>
+
+    <div>
+      <form action="mazo-servlet" method="post">    
+          <input type="hidden" name="accion" value="ver">
+          <input type="submit" ${fn:length(sessionScope.mazo.mazo) == 8 ? '' : 'disabled class="disabled"' } value="Ver Mazo">
+      </form>
     </div>
 </body>
 </html>
