@@ -97,11 +97,30 @@ public class MazoServlet extends HttpServlet {
                     mensaje = "El mazo debe contener 8 cartas";
                 }
                 break;
-            case "quitar" :
+            case "quitar":
                 System.out.println("Hemos entrado en el caso de quitar carta en el mazo");
-                seleccion = Validador.validarString(req.getParameter("busca"));
-                Carta carta = mazo.getCarta(seleccion);
-                mazo.eliminarCarta(carta);
+                try {
+                    seleccion = Validador.validarString(req.getParameter("busca"));
+
+                } catch (Exception e) {
+                    mensajeErr = e.getMessage();
+                    error = true;
+                }
+
+                if (!error) {
+                    Carta carta = mazo.getCarta(seleccion);
+                    if (carta != null) {
+                        mazo.eliminarCarta(carta);
+                        System.out.println(
+                                "Se ha quitado la carta " + carta.getNombre() + " del mazo ");
+                        mensaje = "Carta " + carta.getNombre() + " quitado del mazo";
+                    } else {
+                        mensajeErr = "No se ha podido quitar la carta";
+                    }
+
+                } else {
+                    mensajeErr = "No se ha encontrado la carta seleccionada";
+                }
                 Cookie mazoCookie = CookieUtils.encodeMapForCookie("mazo", mazo.getMazo());
                 resp.addCookie(mazoCookie);
                 break;
