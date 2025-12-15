@@ -13,67 +13,60 @@
 <body>
     <h1>Bienvenido</h1>
     <div><c:out value="${sessionScope.mensaje}" default=""/></div>
-    <div style="color:red"><c:out value="${sessionScope.mensajeErr}" default=""/></div>
+    <c:if test="${not empty sessionScope.mensajeErr}">
+        <div class="error"><c:out value="${sessionScope.mensajeErr}"/></div>
+    </c:if>
 
     <c:remove var="mensaje" scope="session"/>
     <c:remove var="mensajeErr" scope="session"/>
 
     <c:set var="mazoVacia" value="${not empty sessionScope.mazo.mazo}" />
 
-    <div class="contenedor" id="contenedor">
-      <c:forEach items="${cartasDisponibles}" var="carta">
-        <form action="mazo-servlet" method="post">
-          <div class="foto">
-            <img src="${carta.imagen}" alt="${carta.nombre}">
-          </div>
-            <div class="stats2">
-                <p id="nombre"><strong>${carta.nombre}</strong></p>
-                <p>Coste Elixir: ${carta.elixir}</p>
-                <p>Rareza: ${carta.rareza}</p>
-            </div>
-                <div>
-                  <input type="hidden" name="accion" value="agregar">
-                  <input type="hidden" name="seleccion" value="${carta.id}">
-                  <input type="submit" value="Añadir">
-                </div>
-        </form>
-      </c:forEach>
-    </div> 
-
-    <div class ="mazo">
-        <table>
-          <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Elixir</th>
-                <th>Rareza</th>
-            </tr>
-          </thead>
-        <tbody>
-            <%--Los elementos se encuentran en la sesión -> objeto mazo -> mapa mazo -> entrySet--%>
+    <h2>Mi Mazo</h2>
+    <div class="container">
+        <div class="mazo">
             <c:forEach items="${sessionScope.mazo.mazo.entrySet()}" var="entry">
-            <tr>
-                <td>${entry.key.nombre}</td>
-                <td>${entry.key.elixir}</td>
-                <td>${entry.key.rareza}</td>
-            </tr>
+                <div class="carta">
+                    <img src="${entry.key.imagen}" alt="${entry.key.nombre}">
+                    <p><strong>${entry.key.nombre}</strong></p>
+                    <p>Elixir: ${entry.key.elixir}</p>
+                    <p>Rareza: ${entry.key.rareza}</p>
+                </div>
             </c:forEach>
-        </tbody>
-    </table>
-    
-    </div>   
+        </div>
+    </div>
+
+    <h2>Cartas Disponibles</h2>
+    <div class="container">
+        <div class="cartas">
+            <c:forEach items="${cartasDisponibles}" var="carta">
+                <form action="mazo-servlet" method="post">
+                    <div class="carta">
+                        <img src="${carta.imagen}" alt="${carta.nombre}">
+                        <p><strong>${carta.nombre}</strong></p>
+                        <p>Coste Elixir: ${carta.elixir}</p>
+                        <p>Rareza: ${carta.rareza}</p>
+                        <input type="hidden" name="accion" value="agregar">
+                        <input type="hidden" name="seleccion" value="${carta.id}">
+                        <input type="submit" value="Añadir">
+                    </div>
+                </form>
+            </c:forEach>
+        </div>
+    </div>
+
     <div>
         <form action="mazo-servlet" method="post">    
-          <input type="hidden" name="accion" value="limpiar">
-          <input type="submit" ${!mazoVacia ? 'disabled class="disabled"' : '' } value="Limpiar Mazo">
+            <input type="hidden" name="accion" value="limpiar">
+            <input type="submit" ${!mazoVacia ? 'disabled class="disabled"' : '' } value="Limpiar Mazo">
         </form>
     </div>
 
     <div>
-      <form action="mazo-servlet" method="post">    
-          <input type="hidden" name="accion" value="ver">
-          <input type="submit" ${fn:length(sessionScope.mazo.mazo) == 8 ? '' : 'disabled class="disabled"' } value="Ver Mazo">
-      </form>
+        <form action="mazo-servlet" method="post">    
+            <input type="hidden" name="accion" value="ver">
+            <input type="submit" ${fn:length(sessionScope.mazo.mazo) == 8 ? '' : 'disabled class="disabled"' } value="Ver Mazo">
+        </form>
     </div>
 </body>
 </html>
