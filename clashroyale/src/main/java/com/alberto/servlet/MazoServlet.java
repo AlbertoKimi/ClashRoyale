@@ -97,6 +97,14 @@ public class MazoServlet extends HttpServlet {
                     mensaje = "El mazo debe contener 8 cartas";
                 }
                 break;
+            case "quitar" :
+                System.out.println("Hemos entrado en el caso de quitar carta en el mazo");
+                seleccion = Validador.validarString(req.getParameter("busca"));
+                Carta carta = mazo.getCarta(seleccion);
+                mazo.eliminarCarta(carta);
+                Cookie mazoCookie = CookieUtils.encodeMapForCookie("mazo", mazo.getMazo());
+                resp.addCookie(mazoCookie);
+                break;
 
             default:
                 mensaje = "Acción no encontrada";

@@ -14,9 +14,18 @@ public class Mazo {
         return this.mazo;
     }
 
-    public boolean estaEnMazo(String id){
-        for (Carta carta : mazo.keySet()){
-            if(carta.getId().equals(id)){
+    public Carta getCarta(String id) {
+        for (Carta carta : mazo.keySet()) {
+            if (id.equals(carta.getId()))
+                return carta;
+        }
+
+        return null;
+    }
+
+    public boolean estaEnMazo(String id) {
+        for (Carta carta : mazo.keySet()) {
+            if (carta.getId().equals(id)) {
                 return true;
             }
         }

@@ -31,6 +31,11 @@
                     <p><strong>${entry.key.nombre}</strong></p>
                     <p>Elixir: ${entry.key.elixir}</p>
                     <p>Rareza: ${entry.key.rareza}</p>
+                    <form action="mazo-servlet" method="post">    
+                        <input type="hidden" name="accion" value="quitar">
+                        <input type="hidden" name="busca" value="${entry.key.id}">
+                        <input type="submit" value="Quitar">
+                    </form>
                 </div>
             </c:forEach>
         </div>
