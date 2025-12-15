@@ -12,7 +12,7 @@
 </head>
 <body>
     <h1>Bienvenido</h1>
-    <div><c:out value="${sessionScope.mensaje}" default=""/></div>
+    <div class="msj"><c:out value="${sessionScope.mensaje}" default=""/></div>
     <c:if test="${not empty sessionScope.mensajeErr}">
         <div class="error"><c:out value="${sessionScope.mensajeErr}"/></div>
     </c:if>

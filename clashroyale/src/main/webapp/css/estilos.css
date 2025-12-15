@@ -6,6 +6,9 @@ body {
     background: #f6f6f6;
     color: #222;
 }
+body > div.msj { 
+    margin-bottom: 16px; 
+}
 
 h1, h2 {
     margin-top: 0;
