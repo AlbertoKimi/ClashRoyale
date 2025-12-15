@@ -20,7 +20,6 @@
 
     <c:set var="mazoVacia" value="${not empty sessionScope.mazo.mazo}" />
 
-
     <div class="contenedor" id="contenedor">
       <c:forEach items="${cartasDisponibles}" var="carta">
         <form action="mazo-servlet" method="post">

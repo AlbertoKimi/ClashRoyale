@@ -9,6 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mostrar Mazo</title>
+    <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
     <h1>Confirmación de compra</h1>
@@ -25,7 +26,7 @@
             <%--Los elementos se encuentran en la sesión -> objeto carrito -> mapa carrito -> entrySet--%>
             <c:forEach items="${sessionScope.mazo.mazo.entrySet()}" var="entry">
             <tr>
-                <td>${entry.key.imagen}</td>
+                <td><img src="${entry.key.imagen}" alt="${entry.key.nombre}"></td>
                 <td>${entry.key.nombre}</td>
                 <td>${entry.key.elixir}</td>
                 <td>${entry.key.rareza}</td>
@@ -63,7 +64,7 @@
         </tbody>
     </table>
     
-    <form action="mazo-servlet" method="post">
+    <form action="estadisticas-servlet" method="post">
         <input type="submit" name="accion" value="volver">
     </form>
 

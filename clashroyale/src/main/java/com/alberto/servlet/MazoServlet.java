@@ -67,7 +67,7 @@ public class MazoServlet extends HttpServlet {
                             mazo.addCarta(carta);
                             System.out.println("Se ha añadido la carta");
                             System.out.println(
-                                    "Se ha eliminado la carta " + carta.getNombre() + " de la fuente de datos ");
+                                    "Se ha agregado la carta " + carta.getNombre() + " al mazo ");
                             mensaje = "Carta " + carta.getNombre() + " añadido al mazo";
                         } else {
                             mensajeErr = "El mazo no puede contener más de 8 cartas";

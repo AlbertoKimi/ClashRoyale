@@ -25,7 +25,7 @@ public class Estadisticas extends HttpServlet {
         HttpSession session = req.getSession();
         Mazo mazo = (Mazo) session.getAttribute("mazo");
         mazo.vaciar();
-        session.setAttribute("mazo", "");
+        session.setAttribute("mazo", mazo);
         CookieUtils.deleteCookie(req, resp, "mazo");
         resp.sendRedirect("mazo-servlet");
     }
