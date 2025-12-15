@@ -5,9 +5,10 @@ body {
     padding: 20px;
     background: #f6f6f6;
     color: #222;
-}
-body > div.msj { 
-    margin-bottom: 16px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 h1, h2 {
@@ -30,7 +31,7 @@ input[type="submit"] {
     font-size: 14px;
     margin: 5px 0;
     transition: background 0.2s;
-    align-self: flex-start;   /* evita estirarse en contenedor flex */
+    /*align-self: flex-start;    evita estirarse en contenedor flex */
 }
 
 /* Hover normal */
@@ -64,15 +65,19 @@ a.button.disabled:hover {
 /* Zona de cartas y mazo: ocupan todo el ancho disponible */
 .cartas,
 .mazo {
-    flex: 1 1 100%; /* ancho completo en contenedor flex */
+    flex: 1 1 100%;
     background: white;
     border: 1px solid #ddd;
     border-radius: 6px;
     padding: 15px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-    display: flex;
-    flex-wrap: wrap; /* Aquí se hace el wrap de las cartas */
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
     gap: 10px;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    grid-template-columns: repeat(8, 150px);
 }
 
 /* ====== TARJETAS DE CARTA ====== */
@@ -134,6 +139,10 @@ a.button.disabled:hover {
     margin-bottom: 10px;
     border-radius: 4px;
     color: #900;
+}
+
+body > div.msj { 
+    margin-bottom: 16px; 
 }
 
 /* ====== RESPONSIVO ====== */
