@@ -63,7 +63,7 @@ public class MazoServlet extends HttpServlet {
                 if (!error) {
                     Carta carta = fd.getCarta(seleccion);
                     if (carta != null) {
-                        if (mazo.getMazo().size() < 8) {
+                        if (mazo.getMazo().size() < 8) { //Dejar todo en los modelos. Las comprobaciones también en los métodos del modelo. Los mensajes se lanzarán mediante excepciones.
                             mazo.addCarta(carta);
                             System.out.println("Se ha añadido la carta");
                             System.out.println(

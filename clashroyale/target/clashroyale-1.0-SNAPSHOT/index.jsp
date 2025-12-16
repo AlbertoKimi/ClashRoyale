@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
+    <h1>Bienvenido a Clash Royale</h1>
     <form action="mazo-servlet" method="get">
         <button type="submit" class="boton">Ir a la Tienda ahora</button>
     </form>

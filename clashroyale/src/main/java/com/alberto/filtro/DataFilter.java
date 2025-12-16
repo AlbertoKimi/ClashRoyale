@@ -29,14 +29,14 @@ public class DataFilter implements Filter{
         // Casteamos la request a HttpServletRequest para poder acceder a la sesión. Si no, imposible
         HttpServletRequest request = (HttpServletRequest) req;
         // Pillamos el ámbito global de la aplicación
-        ServletContext context = request.getServletContext();
+        ServletContext context = request.getServletContext(); //AplicationScope
         // Obtenemos la sesión
         HttpSession session = request.getSession();
         // Obtenemos nuestro mock que sustituye a una base de datos
         FuenteDeDatos fd = FuenteDeDatos.getInstancia();
         // Colocamos todos los libros de la aplicación en el ámbito global
         context.setAttribute("cartas", fd.getCartas());          // También podría almacenarse en la sesión, pero el contexto es un ámbito único, mejor para este caso puesto que evita guardar toda la colección de libros por cada usuario
-        
+        //Esto lo está pillando para los jsp
         // Vamos a preparar el carrito, lo hacemos en un filtro que se lanzará antes de cada uno de los servlets, así ahorramos trabajo
         // Si ya existe el carrito en la sesión no hay que hacer nada
         if (session.getAttribute("cartas")==null) {
